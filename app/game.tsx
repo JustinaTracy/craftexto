@@ -21,34 +21,34 @@ type GameState = {
   revealed: string | null;
 };
 
-// Brand-aligned rank tiers.
+// Plum-wine gradient: deep (close) → light (far).
 function rankColor(rank: number): {
   bar: string;
   pill: string;
 } {
   if (rank === 1)
     return {
-      bar: "bg-sage-gray-400",
-      pill: "bg-sage-gray-500 text-white",
+      bar: "bg-plum-wine-900",
+      pill: "bg-plum-wine-900 text-white",
     };
   if (rank <= 50)
     return {
-      bar: "bg-sage-gray-200",
-      pill: "bg-sage-gray-50 text-sage-gray-700",
+      bar: "bg-plum-wine-700",
+      pill: "bg-plum-wine-700 text-white",
     };
   if (rank <= 250)
     return {
-      bar: "bg-soft-linen-200",
-      pill: "bg-soft-linen-50 text-soft-linen-400",
+      bar: "bg-plum-wine-500",
+      pill: "bg-plum-wine-100 text-plum-wine-800",
     };
   if (rank <= 1000)
     return {
-      bar: "bg-dusty-rose-200",
-      pill: "bg-dusty-rose-50 text-dusty-rose-400",
+      bar: "bg-plum-wine-300",
+      pill: "bg-plum-wine-50 text-plum-wine-700",
     };
   return {
-    bar: "bg-sunset-red-100",
-    pill: "bg-sunset-red-50 text-sunset-red-700",
+    bar: "bg-plum-wine-100",
+    pill: "bg-plum-wine-50 text-plum-wine-500",
   };
 }
 
