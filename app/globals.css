@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fonts (variables provided by next/font in layout.tsx) */
+  --font-heading: var(--font-eb-garamond);
+  --font-body: var(--font-figtree);
+  --font-sans: var(--font-figtree);
+
+  /* Plum Wine — primary */
+  --color-plum-wine-50: #f4eff3;
+  --color-plum-wine-100: #ebdfe9;
+  --color-plum-wine-200: #dcc5d6;
+  --color-plum-wine-300: #c5a1bc;
+  --color-plum-wine-400: #b183a4;
+  --color-plum-wine-500: #996688;
+  --color-plum-wine-600: #825471;
+  --color-plum-wine-700: #6d475e;
+  --color-plum-wine-800: #4a3241;
+  --color-plum-wine-900: #36212e;
+
+  /* Sage Gray */
+  --color-sage-gray-50: #ebedec;
+  --color-sage-gray-100: #d6dcd8;
+  --color-sage-gray-200: #bbc4be;
+  --color-sage-gray-300: #8d9b92;
+  --color-sage-gray-400: #6c7b72;
+  --color-sage-gray-500: #56635b;
+  --color-sage-gray-600: #464f49;
+  --color-sage-gray-700: #3a413d;
+  --color-sage-gray-800: #313633;
+  --color-sage-gray-900: #181b19;
+
+  /* Dusty Rose */
+  --color-dusty-rose-50: #f9eaeb;
+  --color-dusty-rose-100: #f3d8dc;
+  --color-dusty-rose-200: #e8b4bc;
+  --color-dusty-rose-300: #dc909d;
+  --color-dusty-rose-400: #cc677c;
+
+  /* Soft Linen */
+  --color-soft-linen-50: #f4e9dc;
+  --color-soft-linen-100: #ead5be;
+  --color-soft-linen-200: #dcb795;
+  --color-soft-linen-300: #cd946a;
+  --color-soft-linen-400: #c3794c;
+
+  /* Backgrounds */
+  --color-alabaster-white-50: #faf7f2;
+  --color-pearl-white-50: #fafaf9;
+
+  /* Sunset Red */
+  --color-sunset-red-50: #ffe1e2;
+  --color-sunset-red-100: #ffc7c9;
+  --color-sunset-red-200: #ffa0a3;
+  --color-sunset-red-300: #ff5a5f;
+  --color-sunset-red-400: #f83b41;
+  --color-sunset-red-500: #e51d23;
+  --color-sunset-red-600: #c11419;
+  --color-sunset-red-700: #a01418;
+  --color-sunset-red-800: #84181b;
+  --color-sunset-red-900: #480709;
+
+  /* Royal Violet */
+  --color-royal-violet-50: #e1e2fe;
+  --color-royal-violet-100: #c8cafd;
+  --color-royal-violet-200: #a7a7fa;
+  --color-royal-violet-300: #8c84f5;
+  --color-royal-violet-400: #7b68ee;
+  --color-royal-violet-500: #6b4ae1;
+  --color-royal-violet-600: #5d3bc7;
+  --color-royal-violet-700: #4b33a0;
+  --color-royal-violet-800: #40307f;
+  --color-royal-violet-900: #261c4a;
+
+  /* Lemon Zest */
+  --color-lemon-zest-50: #fcffc2;
+  --color-lemon-zest-100: #feff89;
+  --color-lemon-zest-200: #fffa62;
+  --color-lemon-zest-300: #fdec12;
+  --color-lemon-zest-400: #ecd106;
+  --color-lemon-zest-500: #cca502;
+  --color-lemon-zest-600: #a37605;
+  --color-lemon-zest-700: #865c0d;
+  --color-lemon-zest-800: #724b11;
+  --color-lemon-zest-900: #432805;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-pearl-white-50);
+  color: var(--color-plum-wine-900);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  color: var(--color-plum-wine-900);
 }

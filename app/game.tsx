@@ -21,12 +21,35 @@ type GameState = {
   revealed: string | null;
 };
 
-function rankColor(rank: number, vocabSize: number): string {
-  if (rank === 1) return "bg-emerald-500 text-white";
-  if (rank <= 50) return "bg-emerald-400 text-emerald-950";
-  if (rank <= 250) return "bg-amber-300 text-amber-950";
-  if (rank <= 1000) return "bg-orange-300 text-orange-950";
-  return "bg-rose-300 text-rose-950";
+// Brand-aligned rank tiers.
+function rankColor(rank: number): {
+  bar: string;
+  pill: string;
+} {
+  if (rank === 1)
+    return {
+      bar: "bg-sage-gray-400",
+      pill: "bg-sage-gray-500 text-white",
+    };
+  if (rank <= 50)
+    return {
+      bar: "bg-sage-gray-200",
+      pill: "bg-sage-gray-50 text-sage-gray-700",
+    };
+  if (rank <= 250)
+    return {
+      bar: "bg-soft-linen-200",
+      pill: "bg-soft-linen-50 text-soft-linen-400",
+    };
+  if (rank <= 1000)
+    return {
+      bar: "bg-dusty-rose-200",
+      pill: "bg-dusty-rose-50 text-dusty-rose-400",
+    };
+  return {
+    bar: "bg-sunset-red-100",
+    pill: "bg-sunset-red-50 text-sunset-red-700",
+  };
 }
 
 function rankLabel(rank: number, vocabSize: number) {
@@ -150,48 +173,49 @@ export default function Game() {
   }, [game]);
 
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
-      <div className="mx-auto max-w-2xl px-4 py-8">
-        <header className="mb-6">
-          <h1 className="text-3xl font-bold tracking-tight">
+    <div className="min-h-screen bg-pearl-white-50 text-plum-wine-900">
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14">
+        <header className="mb-8 text-center sm:text-left">
+          <h1 className="font-heading text-[40px] leading-tight font-normal text-plum-wine-900 sm:text-[56px]">
             Craftexto
-            <span className="ml-2 text-base font-normal text-stone-500">
-              guess the craft word
-            </span>
           </h1>
-          <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-            Lower rank = closer to the secret word. Rank 1 wins.
+          <p className="mt-2 font-body text-base leading-relaxed text-plum-wine-700">
+            Guess the secret craft word. Lower rank means closer — rank 1 wins.
           </p>
         </header>
 
-        <div className="mb-4 flex gap-2">
+        {/* Mode toggle */}
+        <div className="mb-5 inline-flex rounded-full border border-neutral-300 bg-white p-1 shadow-sm">
           <button
             onClick={() => startGame("daily")}
             disabled={busy}
-            className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition ${
+            className={`rounded-full px-5 py-2 font-body text-sm font-semibold transition ${
               mode === "daily"
-                ? "border-emerald-500 bg-emerald-500 text-white"
-                : "border-stone-300 bg-white hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800"
+                ? "bg-plum-wine-700 text-white"
+                : "text-plum-wine-700 hover:bg-plum-wine-50"
             }`}
           >
             Word of the Day
             {game?.dayKey && mode === "daily" && (
-              <span className="ml-2 text-xs opacity-80">{game.dayKey}</span>
+              <span className="ml-2 text-xs font-normal opacity-80">
+                {game.dayKey}
+              </span>
             )}
           </button>
           <button
             onClick={() => startGame("freeplay")}
             disabled={busy}
-            className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition ${
+            className={`rounded-full px-5 py-2 font-body text-sm font-semibold transition ${
               mode === "freeplay"
-                ? "border-emerald-500 bg-emerald-500 text-white"
-                : "border-stone-300 bg-white hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800"
+                ? "bg-plum-wine-700 text-white"
+                : "text-plum-wine-700 hover:bg-plum-wine-50"
             }`}
           >
             Freeplay {mode === "freeplay" && "↻"}
           </button>
         </div>
 
+        {/* Guess input */}
         <form onSubmit={submitGuess} className="mb-4 flex gap-2">
           <input
             ref={inputRef}
@@ -199,7 +223,7 @@ export default function Game() {
             onChange={(e) => setInput(e.target.value)}
             disabled={!game || busy || game.solved || !!game.revealed}
             placeholder="type a word…"
-            className="flex-1 rounded-lg border border-stone-300 bg-white px-4 py-3 text-base outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 disabled:opacity-50 dark:border-stone-700 dark:bg-stone-900"
+            className="flex-1 rounded-full border border-neutral-300 bg-white px-5 py-3 font-body text-base text-plum-wine-900 placeholder:text-neutral-400 outline-none transition focus:border-plum-wine-500 focus:ring-2 focus:ring-plum-wine-200 disabled:opacity-50"
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
@@ -207,68 +231,98 @@ export default function Game() {
           />
           <button
             type="submit"
-            disabled={!game || busy || !input.trim() || game?.solved || !!game?.revealed}
-            className="rounded-lg bg-emerald-600 px-4 py-3 font-medium text-white transition hover:bg-emerald-700 disabled:opacity-50"
+            disabled={
+              !game || busy || !input.trim() || game?.solved || !!game?.revealed
+            }
+            className="rounded-full bg-plum-wine-700 px-6 py-2.5 font-body text-base font-semibold text-white transition hover:bg-plum-wine-800 disabled:bg-neutral-200 disabled:text-neutral-400"
           >
             {busy ? "…" : "Guess"}
           </button>
         </form>
 
         {error && (
-          <div className="mb-3 rounded-md bg-rose-100 px-3 py-2 text-sm text-rose-800 dark:bg-rose-950 dark:text-rose-200">
+          <div className="mb-3 rounded-2xl border border-sunset-red-100 bg-sunset-red-50 px-4 py-3 font-body text-sm text-sunset-red-700">
             {error}
           </div>
         )}
 
+        {/* Solved state */}
         {game?.solved && (
-          <div className="mb-4 rounded-lg bg-emerald-100 p-4 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100">
-            <div className="text-lg font-bold">You got it! 🎉</div>
-            <div className="text-sm">
-              {game.guesses.length} guess{game.guesses.length === 1 ? "" : "es"}.{" "}
+          <div className="mb-5 rounded-2xl border border-sage-gray-100 bg-alabaster-white-50 p-6 shadow-sm">
+            <h2 className="font-heading text-2xl leading-snug font-normal text-plum-wine-900">
+              You got it!
+            </h2>
+            <p className="mt-1 font-body text-sm text-plum-wine-700">
+              Solved in {game.guesses.length} guess
+              {game.guesses.length === 1 ? "" : "es"}.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
               <button
-                className="underline"
-                onClick={() => startGame(mode === "daily" ? "freeplay" : "freeplay")}
+                onClick={() => startGame("freeplay")}
+                className="rounded-full bg-plum-wine-700 px-6 py-2.5 font-body text-base font-semibold text-white transition hover:bg-plum-wine-800"
               >
-                Play freeplay
+                Play another (Freeplay)
               </button>
+              {mode === "freeplay" && (
+                <button
+                  onClick={() => startGame("daily")}
+                  className="rounded-full border border-plum-wine-700 px-6 py-2.5 font-body text-base font-semibold text-plum-wine-700 transition hover:bg-plum-wine-50"
+                >
+                  Today's word
+                </button>
+              )}
             </div>
           </div>
         )}
 
+        {/* Reveal state */}
         {game?.revealed && !game.solved && (
-          <div className="mb-4 rounded-lg bg-stone-200 p-4 dark:bg-stone-800">
-            <div className="text-sm">The word was</div>
-            <div className="text-2xl font-bold">{game.revealed}</div>
+          <div className="mb-5 rounded-2xl border border-neutral-200 bg-alabaster-white-50 p-6 shadow-sm">
+            <p className="font-body text-sm text-plum-wine-700">
+              The word was
+            </p>
+            <p className="mt-1 font-heading text-[40px] leading-snug text-plum-wine-900">
+              {game.revealed}
+            </p>
+            <button
+              onClick={() => startGame(mode)}
+              className="mt-4 rounded-full bg-plum-wine-700 px-6 py-2.5 font-body text-base font-semibold text-white transition hover:bg-plum-wine-800"
+            >
+              Try again
+            </button>
           </div>
         )}
 
+        {/* Give up */}
         {game && !game.solved && !game.revealed && game.guesses.length > 0 && (
-          <div className="mb-2 flex justify-end">
+          <div className="mb-3 flex justify-end">
             <button
               onClick={giveUp}
-              className="text-xs text-stone-500 underline hover:text-stone-700 dark:hover:text-stone-300"
+              className="font-body text-xs font-medium text-plum-wine-500 underline-offset-2 hover:text-plum-wine-700 hover:underline"
             >
               give up
             </button>
           </div>
         )}
 
+        {/* Latest guess */}
         {latest && (
-          <div className="mb-3">
-            <div className="mb-1 text-xs uppercase tracking-wide text-stone-500">
+          <div className="mb-4">
+            <p className="mb-1 font-body text-xs font-medium uppercase tracking-wide text-neutral-500">
               latest guess
-            </div>
+            </p>
             <GuessRow g={latest} vocabSize={game!.vocabSize} highlight />
           </div>
         )}
 
+        {/* Sorted guesses */}
         {sortedGuesses.length > 0 && (
           <div>
-            <div className="mb-1 flex items-center justify-between text-xs uppercase tracking-wide text-stone-500">
+            <div className="mb-2 flex items-center justify-between font-body text-xs font-medium uppercase tracking-wide text-neutral-500">
               <span>guesses ({sortedGuesses.length})</span>
               <span>rank · similarity</span>
             </div>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               {sortedGuesses.map((g) => (
                 <li key={g.guess}>
                   <GuessRow g={g} vocabSize={game!.vocabSize} />
@@ -278,8 +332,9 @@ export default function Game() {
           </div>
         )}
 
-        <footer className="mt-12 text-center text-xs text-stone-500">
-          built with Next.js · OpenAI embeddings · {game?.vocabSize ?? "—"} word vocab
+        <footer className="mt-16 text-center font-body text-xs text-neutral-500">
+          Built with Next.js · OpenAI embeddings ·{" "}
+          {game?.vocabSize ?? "—"}-word craft vocabulary
         </footer>
       </div>
     </div>
@@ -295,29 +350,34 @@ function GuessRow({
   vocabSize: number;
   highlight?: boolean;
 }) {
-  const color = rankColor(g.rank, vocabSize);
-  // bar width: closer = fuller. Use rank for vocab matches, similarity-derived for off-vocab.
+  const c = rankColor(g.rank);
   const pct =
     g.rank <= vocabSize
       ? Math.max(2, 100 - (g.rank / vocabSize) * 100)
       : Math.max(2, Math.min(100, g.similarity * 100));
   return (
     <div
-      className={`relative overflow-hidden rounded-md border ${
+      className={`relative overflow-hidden rounded-2xl border bg-white shadow-sm transition ${
         highlight
-          ? "border-emerald-400 ring-2 ring-emerald-300"
-          : "border-stone-200 dark:border-stone-800"
-      } bg-white dark:bg-stone-900`}
+          ? "border-plum-wine-500 ring-2 ring-plum-wine-200"
+          : "border-neutral-200"
+      }`}
     >
       <div
-        className={`absolute inset-y-0 left-0 ${color} opacity-30`}
+        className={`absolute inset-y-0 left-0 ${c.bar} opacity-40`}
         style={{ width: `${pct}%` }}
       />
-      <div className="relative flex items-center justify-between px-3 py-2">
-        <span className="font-medium">{g.guess}</span>
-        <span className="font-mono text-sm tabular-nums">
-          {rankLabel(g.rank, vocabSize)}
-          <span className="ml-2 text-xs text-stone-500">
+      <div className="relative flex items-center justify-between px-4 py-3">
+        <span className="font-body text-base font-medium text-plum-wine-900">
+          {g.guess}
+        </span>
+        <span className="flex items-center gap-2">
+          <span
+            className={`rounded-full px-3 py-1 font-body text-xs font-medium tabular-nums ${c.pill}`}
+          >
+            #{rankLabel(g.rank, vocabSize)}
+          </span>
+          <span className="font-body text-xs text-neutral-500 tabular-nums">
             {(g.similarity * 100).toFixed(1)}%
           </span>
         </span>
