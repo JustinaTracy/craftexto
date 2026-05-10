@@ -1,111 +1,110 @@
-// Curated list of craft-related words. Kept lowercase, single-word.
+// Curated list of craft-specific words: materials, tools, techniques,
+// disciplines, and the classic outputs crafters actually make.
+// Avoids generic decor / home goods / fashion / nature terms.
 export const CRAFT_WORDS: string[] = [
-  // textile materials
+  // Textile materials
   "yarn", "thread", "wool", "cotton", "linen", "silk", "felt", "fabric",
   "fiber", "twine", "rope", "ribbon", "lace", "denim", "canvas", "burlap",
   "velvet", "satin", "tulle", "muslin", "fleece", "leather", "suede",
-  "embroidery", "floss", "skein", "spool", "bobbin",
+  "floss", "skein", "spool", "bobbin", "hank", "ply", "roving",
 
-  // textile tools
+  // Textile tools
   "needle", "pin", "scissors", "shears", "hook", "loom", "spindle", "thimble",
-  "hoop", "frame", "shuttle", "treadle", "bodkin", "awl",
+  "hoop", "shuttle", "treadle", "bodkin", "awl", "rotary",
 
-  // textile techniques
-  "knit", "purl", "crochet", "sew", "stitch", "weave", "quilt", "applique",
-  "darn", "hem", "tat", "macrame", "crewel", "needlepoint", "tapestry",
+  // Textile techniques + disciplines
+  "knit", "knitting", "purl", "crochet", "crocheting",
+  "sew", "sewing", "stitch", "weave", "weaving",
+  "quilt", "quilting", "darn", "hem", "tat", "tatting",
+  "macrame", "crewel", "needlepoint", "needlework", "tapestry",
+  "applique", "patchwork",
+  "embroidery", "embroider", "embroidering",
+  "gauge", "swatch", "intarsia",
+  "felting", "spinning", "weaver", "knitter",
 
-  // paper craft
-  "paper", "cardboard", "cardstock", "vellum", "origami", "kirigami", "papier",
-  "scrapbook", "stamp", "sticker", "washi", "doily", "confetti",
+  // Paper craft
+  "paper", "cardstock", "vellum", "washi",
+  "origami", "kirigami", "papercraft",
+  "scrapbook", "scrapbooking",
+  "decoupage", "quilling",
+  "stamp", "stamping", "stencil", "stenciling",
+  "emboss", "embossing",
+  "cardmaking",
 
-  // ceramics & sculpture
-  "clay", "porcelain", "terracotta", "ceramic", "pottery", "kiln", "wheel",
-  "glaze", "slip", "bisque", "earthenware", "stoneware", "sculpture",
-  "carve", "mold", "cast", "kneading", "throwing",
+  // Ceramics
+  "clay", "porcelain", "terracotta", "ceramic", "earthenware", "stoneware",
+  "pottery", "kiln", "wheel", "glaze", "glazing", "slip", "bisque",
+  "throwing", "wedging", "kintsugi", "raku",
 
-  // woodwork
+  // Sculpture / carving
+  "sculpt", "sculpting", "sculpture",
+  "carve", "carving", "whittle", "whittling",
+  "mold", "cast", "casting", "chisel",
+
+  // Woodwork
   "wood", "lumber", "plank", "dowel", "veneer", "balsa", "plywood",
-  "hammer", "nail", "screw", "saw", "chisel", "plane", "lathe", "sandpaper",
-  "whittle", "joinery", "dovetail", "mortise", "tenon", "varnish", "stain",
+  "hammer", "nail", "screw", "saw", "plane", "lathe", "sandpaper", "sanding",
+  "joinery", "dovetail", "mortise", "tenon", "varnish", "stain", "lacquer",
+  "woodworking", "woodturning", "pyrography",
 
-  // metal & jewelry
-  "metal", "wire", "bead", "charm", "pendant", "clasp", "solder", "anvil",
-  "forge", "smith", "enamel", "filigree", "bezel", "rivet", "engrave",
-  "jewelry", "bracelet", "necklace", "earring", "ring", "brooch",
+  // Metal & jewelry
+  "metal", "wire", "bead", "beading", "beadwork",
+  "solder", "soldering", "anvil", "forge", "forging", "smith",
+  "enamel", "enameling", "filigree", "bezel", "rivet", "engrave", "engraving",
+  "jewelry", "bracelet", "necklace", "earring", "brooch", "pendant", "charm",
+  "metalwork", "jewelrymaking",
 
-  // glass & resin
-  "glass", "stained", "fused", "blown", "mosaic", "tile", "grout", "resin",
-  "epoxy", "casting", "mold", "lampwork",
+  // Glass & resin
+  "glass", "stained", "fused", "blown", "mosaic", "tile", "grout",
+  "resin", "epoxy", "lampwork", "glasswork",
 
-  // paint & ink
-  "paint", "acrylic", "watercolor", "gouache", "tempera", "oil", "brush",
-  "palette", "easel", "canvas", "ink", "marker", "pencil", "pastel", "charcoal",
-  "crayon", "chalk", "sketch", "draw", "doodle", "calligraphy", "lettering",
+  // Paint & ink
+  "paint", "painting", "acrylic", "watercolor", "gouache", "tempera",
+  "oil", "brush", "palette", "easel",
+  "ink", "marker", "pencil", "pastel", "charcoal", "crayon", "chalk",
+  "sketch", "draw", "drawing", "doodle", "shade", "blend",
+  "calligraphy", "lettering",
+  "impasto", "gilding", "foiling",
 
-  // fragrance & wax
-  "candle", "wax", "wick", "soap", "lotion", "balm", "perfume", "incense",
-  "potpourri", "essential",
+  // Print & dye
+  "dye", "dyeing", "batik", "shibori", "indigo", "madder", "mordant",
+  "screenprint", "screenprinting", "linocut", "woodcut",
+  "etching", "monoprint", "letterpress", "printmaking", "block",
 
-  // food crafts
-  "bake", "baking", "cake", "cookie", "frosting", "fondant", "icing",
-  "sugar", "chocolate", "marzipan", "dough", "flour", "rolling", "cutter",
-  "decorate", "garnish", "plating",
+  // Candle / soap / wax
+  "candle", "candlemaking", "wax", "wick",
+  "soap", "soapmaking", "balm",
 
-  // floral & nature
-  "flower", "wreath", "bouquet", "garland", "pressed", "dried", "potted",
-  "terrarium", "succulent", "moss", "twig", "branch", "bark", "leaf", "seed",
-  "shell", "feather", "pebble", "driftwood",
+  // Cake decorating (the crafty bits)
+  "fondant", "frosting", "icing", "marzipan",
+  "piping", "decorate", "garnish",
 
-  // patterns & decoration
-  "pattern", "stencil", "template", "design", "motif", "chevron", "stripe",
-  "polka", "floral", "geometric", "ornament", "decoration", "embellish",
-  "trim", "fringe", "tassel", "pompom", "sequin", "rhinestone", "glitter",
+  // Bookbinding / leather
+  "bookbinding", "binding", "leatherwork", "tooling", "stitching",
 
-  // adhesives & fasteners
-  "glue", "tape", "staple", "clip", "snap", "button", "buckle", "zipper",
-  "velcro", "magnet", "hook", "eye", "grommet", "eyelet",
+  // Embellishments
+  "sequin", "rhinestone", "glitter", "tassel", "pompom", "fringe",
+  "trim", "patch",
 
-  // measuring & marking
-  "ruler", "tape", "compass", "protractor", "square", "marker", "chalk",
+  // Fasteners
+  "glue", "tape", "staple", "snap", "button", "buckle", "zipper", "velcro",
+  "grommet", "eyelet", "magnet",
 
-  // gifting & home
-  "gift", "wrapping", "bow", "card", "envelope", "tag", "ornament",
-  "frame", "vase", "bowl", "cup", "plate", "tray", "coaster", "trivet",
-  "doormat", "rug", "blanket", "pillow", "cushion", "throw", "quilt",
-  "curtain", "tablecloth", "runner", "placemat", "apron", "potholder",
-  "coaster",
+  // Pattern / design language
+  "pattern", "template", "motif", "design", "texture", "layer", "color",
 
-  // wearables
-  "scarf", "shawl", "hat", "beanie", "mitten", "glove", "sock", "sweater",
-  "cardigan", "poncho", "skirt", "dress", "shirt", "vest", "tie", "belt",
-  "purse", "bag", "tote", "wallet", "backpack",
+  // Classic craft outputs (things crafters specifically make)
+  "scarf", "shawl", "mitten", "sock", "sweater",
+  "blanket", "afghan", "doily",
+  "basket", "wreath", "garland",
+  "doll", "plush", "amigurumi",
+  "pressed", "dried",
 
-  // toys & figures
-  "doll", "plush", "puppet", "teddy", "figurine", "miniature", "diorama",
-  "puzzle", "kite", "marionette",
-
-  // outdoor & rustic
-  "basket", "broom", "wreath", "birdhouse", "lantern", "planter", "trellis",
-  "fairy", "gnome",
-
-  // print & dye
-  "dye", "tie", "batik", "shibori", "indigo", "madder", "mordant",
-  "screen", "block", "linocut", "woodcut", "etching", "engraving", "gocco",
-  "monoprint", "letterpress",
-
-  // crafts as hobby names
-  "knitting", "crocheting", "sewing", "weaving", "quilting", "embroidering",
-  "painting", "sculpting", "woodworking", "papercraft", "scrapbooking",
-  "cardmaking", "stamping", "stenciling", "decoupage", "enameling",
-  "candlemaking", "soapmaking", "bookbinding", "leatherwork", "metalwork",
-  "glasswork", "beading", "macrame", "felting", "spinning", "dyeing",
-  "printmaking", "calligraphy", "modeling", "carving", "etching",
-
-  // nice generic concepts
-  "handmade", "homemade", "artisan", "craft", "crafty", "hobby", "project",
+  // Meta / process
+  "handmade", "homemade", "artisan", "craft", "crafting", "crafter", "crafty",
+  "hobby", "project",
   "create", "creative", "creation", "maker", "studio", "workshop", "atelier",
-  "kit", "supplies", "stash", "tutorial", "pattern", "instructions",
-  "color", "palette", "texture", "shape", "layer", "detail",
+  "kit", "supplies", "stash", "tutorial", "instructions",
 ];
 
 // Deduplicate while preserving first occurrence
