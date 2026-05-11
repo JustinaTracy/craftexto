@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { dailyIndex, dailyKey, randomIndex, VOCAB } from "@/lib/words";
+import { dailyIndex, dailyKey, randomIndex } from "@/lib/words";
 import { encodeGame } from "@/lib/token";
+import { totalCorpus } from "@/lib/embeddings";
 
 export const runtime = "nodejs";
 
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
   return NextResponse.json({
     token,
     mode,
-    vocabSize: VOCAB.length,
+    vocabSize: totalCorpus(),
     dayKey: mode === "daily" ? dailyKey() : null,
   });
 }

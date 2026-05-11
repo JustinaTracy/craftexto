@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { decodeGame } from "@/lib/token";
-import { rankGuess, totalVocab } from "@/lib/embeddings";
+import { rankGuess, totalCorpus } from "@/lib/embeddings";
 import { VOCAB } from "@/lib/words";
 
 export const runtime = "nodejs";
@@ -30,11 +30,11 @@ export async function POST(req: Request) {
   }
 
   try {
-    const result = await rankGuess(game.wordIndex, guess);
+    const secretWord = VOCAB[game.wordIndex];
+    const result = await rankGuess(secretWord, guess);
     return NextResponse.json({
       ...result,
-      vocabSize: totalVocab(),
-      solved: result.rank === 1 && result.guess === VOCAB[game.wordIndex],
+      vocabSize: totalCorpus(),
     });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "embedding error";

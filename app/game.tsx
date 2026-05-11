@@ -5,10 +5,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 type Mode = "daily" | "freeplay";
 
 type Guess = {
-  guess: string;
+  guess: string; // canonical form
+  raw: string; // what the user actually typed (if different)
   rank: number;
   similarity: number;
-  inVocab: boolean;
+  inCorpus: boolean;
 };
 
 type GameState = {
@@ -124,23 +125,37 @@ export default function Game() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "guess failed");
-      const newGuess: Guess = {
-        guess: data.guess,
-        rank: data.rank,
-        similarity: data.similarity,
-        inVocab: data.inVocab,
-      };
-      setLatest(newGuess);
-      setGame((g) =>
-        g
-          ? {
-              ...g,
-              guesses: [newGuess, ...g.guesses],
-              solved: data.solved,
-            }
-          : g,
-      );
-      setInput("");
+      const canon = data.guess as string;
+      // Dedupe by canonical form — variants/misspellings collapse to one.
+      const already = game.guesses.find((g) => g.guess === canon);
+      if (already) {
+        setLatest(already);
+        setError(
+          word === canon
+            ? `already guessed "${canon}"`
+            : `"${word}" → already guessed "${canon}"`,
+        );
+        setInput("");
+      } else {
+        const newGuess: Guess = {
+          guess: canon,
+          raw: data.raw,
+          rank: data.rank,
+          similarity: data.similarity,
+          inCorpus: data.inCorpus,
+        };
+        setLatest(newGuess);
+        setGame((g) =>
+          g
+            ? {
+                ...g,
+                guesses: [newGuess, ...g.guesses],
+                solved: data.solved,
+              }
+            : g,
+        );
+        setInput("");
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "error");
     } finally {
@@ -370,6 +385,11 @@ function GuessRow({
       <div className="relative flex items-center justify-between px-4 py-3">
         <span className="font-body text-base font-medium text-plum-wine-900">
           {g.guess}
+          {g.raw && g.raw !== g.guess && (
+            <span className="ml-2 text-xs font-normal text-neutral-500">
+              (you typed “{g.raw}”)
+            </span>
+          )}
         </span>
         <span className="flex items-center gap-2">
           <span
