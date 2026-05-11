@@ -1,50 +1,13 @@
-// Canonicalize a guess to a known reference form so that plurals,
-// verb-tense variants, and 1-letter misspellings all map to a single
-// entry. Returns the canonical word if found, else the cleaned input.
-
-function levenshtein1(a: string, b: string): boolean {
-  // Returns true iff edit distance is exactly 0 or 1.
-  if (a === b) return true;
-  const la = a.length;
-  const lb = b.length;
-  if (Math.abs(la - lb) > 1) return false;
-  if (la === lb) {
-    let diff = 0;
-    for (let i = 0; i < la; i++) {
-      if (a[i] !== b[i]) {
-        diff++;
-        if (diff > 1) return false;
-      }
-    }
-    return diff === 1;
-  }
-  // One insertion/deletion
-  const [s, l] = la < lb ? [a, b] : [b, a];
-  let i = 0;
-  let j = 0;
-  let diff = 0;
-  while (i < s.length && j < l.length) {
-    if (s[i] !== l[j]) {
-      diff++;
-      if (diff > 1) return false;
-      j++;
-    } else {
-      i++;
-      j++;
-    }
-  }
-  return true;
-}
-
+// Canonicalize a guess to a known reference form so that plurals and
+// verb-tense variants map to a single entry. Returns the canonical word
+// if found, else the cleaned input.
+//
+// NOTE: deliberately no Levenshtein/fuzzy typo correction. With our
+// modestly-sized corpus, edit-distance-1 false positives ("folder" →
+// "solder", "knot" → "knit") are far worse than the wins. The embedding
+// model handles minor misspellings well enough on the off-corpus path.
 export function makeCanonicalizer(knownWords: string[]) {
   const set = new Set(knownWords.map((w) => w.toLowerCase()));
-  // index by length for fast Levenshtein narrowing
-  const byLen = new Map<number, string[]>();
-  for (const w of set) {
-    const arr = byLen.get(w.length);
-    if (arr) arr.push(w);
-    else byLen.set(w.length, [w]);
-  }
 
   return function canon(raw: string): string {
     const w = raw.toLowerCase().trim().replace(/^[^a-z]+|[^a-z]+$/g, "");
@@ -93,19 +56,6 @@ export function makeCanonicalizer(knownWords: string[]) {
 
     for (const t of tries) {
       if (set.has(t)) return t;
-    }
-
-    // Fuzzy: try edit distance 1 against same-length-ish words.
-    // Only for words length ≥ 4 to avoid over-matching short tokens.
-    if (w.length >= 4) {
-      const candidates = [
-        ...(byLen.get(w.length) ?? []),
-        ...(byLen.get(w.length - 1) ?? []),
-        ...(byLen.get(w.length + 1) ?? []),
-      ];
-      for (const c of candidates) {
-        if (levenshtein1(w, c)) return c;
-      }
     }
 
     return w;
